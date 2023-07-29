@@ -26,50 +26,48 @@ import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.session.SessionManager;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WMWorldEdit {
+public class WorldEditWrapper {
     private static boolean worldeditActive = false;
     private static boolean worldguardActive = false;
+    private static JavaPlugin plugin;
 
-    public static void init() {
-        worldeditActive = ConnectWorldEdit();
-        worldguardActive = ConnectWorldGuard();
+    public WorldEditWrapper(JavaPlugin plugin) {
+
+        this.plugin = plugin;
+
+        // check for WorldEdit
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+            this.plugin.getLogger().info("WorldEdit found. Enabling WorldEdit features.");
+            this.worldeditActive = true;
+        }
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
+            this.plugin.getLogger().info("WorldGuard found. Enabling WorldGuard features.");
+            this.worldguardActive = true;
+        }
     }
 
 
-    public static boolean isWE() {
+    public static boolean hasWorldEdit() {
         return worldeditActive;
     }
 
-    public static boolean isWG() {
+    public static boolean hasWorldGuard() {
         return worldguardActive;
-    }
-
-
-    public static boolean ConnectWorldEdit() {
-        Plugin worldEdit = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-        return (worldEdit instanceof WorldEditPlugin);
-    }
-
-    public static boolean ConnectWorldGuard() {
-        Plugin worldGuard = Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
-        return (worldGuard instanceof WorldGuardPlugin);
     }
 
     public static Location getMinPoint(org.bukkit.World world, String rg) {
@@ -95,7 +93,7 @@ public class WMWorldEdit {
     }
 
     public static boolean isRegionExists(org.bukkit.World world, String rg) {
-        if (!WMWorldEdit.isWG()) return false;
+        if (!WorldEditWrapper.hasWorldGuard()) return false;
         if (world == null) return false;
         if (rg.isEmpty()) return false;
         World wgWorld = BukkitAdapter.adapt(world);
@@ -104,8 +102,8 @@ public class WMWorldEdit {
     }
 
     public static boolean isRegionExists(String region) {
-        if (!WMWorldEdit.isWG()) return false;
-        for (org.bukkit.World w : Bukkit.getWorlds()) {
+        if (!WorldEditWrapper.hasWorldGuard()) return false;
+        for (org.bukkit.World w : plugin.getServer().getWorlds()) {
             World wgWorld = BukkitAdapter.adapt(w);
             ProtectedRegion rg = WorldGuard.getInstance().getPlatform().getRegionContainer().get(wgWorld).getRegion(region);
             if (rg != null) return true;
@@ -115,7 +113,7 @@ public class WMWorldEdit {
 
     public static List<String> getRegions(Location loc) {
         List<String> rgList = new ArrayList<>();
-        if (!WMWorldEdit.isWG()) return rgList;
+        if (!WorldEditWrapper.hasWorldGuard()) return rgList;
         World wgWorld = BukkitAdapter.adapt((loc.getWorld()));
         BlockVector3 bv = BukkitAdapter.asBlockVector(loc);
         ApplicableRegionSet regionSet = WorldGuard.getInstance().getPlatform().getRegionContainer().get(wgWorld).getApplicableRegions(bv);

@@ -27,7 +27,7 @@ import me.fromgate.weatherman.commands.Cmd;
 import me.fromgate.weatherman.commands.CmdDefine;
 import me.fromgate.weatherman.localweather.LocalWeather;
 import me.fromgate.weatherman.util.Cfg;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.command.CommandSender;
 
@@ -38,12 +38,12 @@ public class WthRegion extends Cmd {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (!Cfg.localTimeEnable) return M.WTH_DISABLED.print(sender);
-        if (!WMWorldEdit.isWG()) return M.WG_NOTFOUND.print(sender);
+        if (!WorldEditWrapper.hasWorldGuard()) return M.WG_NOTFOUND.print(sender);
         if (args.length <= 2) {
             LocalWeather.printRegionList(sender, args.length == 2 && args[1].matches("\\d+") ? Integer.parseInt(args[1]) : 1);
         } else {
             String regionName = args[1];
-            if (!WMWorldEdit.isRegionExists(regionName)) {
+            if (!WorldEditWrapper.isRegionExists(regionName)) {
                 LocalWeather.clearRegionRain(regionName);
                 return M.WTH_UNKNOWNREGION.print(sender, regionName);
             }

@@ -2,7 +2,8 @@ name: ${project.name}
 version: ${project.version}
 description: ${project.description}
 author: ${author}
-depend: []
+depend: [WorldEdit]
+softdepend: [WorldGuard]
 api-version: 1.20
 
 main: ${mainClass}

@@ -132,8 +132,8 @@ public class WMListener implements Listener {
                     event.setLine(2, ChatColor.BLUE + "radius=" + Cfg.defaultRadius);
                 else {
                     event.setLine(2, ChatColor.BLUE + l2);
-                    if (WMWorldEdit.isWG()) {
-                        if (!WMWorldEdit.isRegionExists(event.getBlock().getWorld(), l2)) {
+                    if (WorldEditWrapper.hasWorldGuard()) {
+                        if (!WorldEditWrapper.isRegionExists(event.getBlock().getWorld(), l2)) {
 
                             M.WG_UNKNOWNREGION.print(p, l2);
                         }
@@ -182,10 +182,10 @@ public class WMListener implements Listener {
                         } else if (rs.equalsIgnoreCase("replace")) mode = 1;
                         else {
                             World w = event.getBlock().getWorld();
-                            if (WMWorldEdit.isRegionExists(w, rs)) {
-                                loc1 = WMWorldEdit.getMinPoint(w, rs);
+                            if (WorldEditWrapper.isRegionExists(w, rs)) {
+                                loc1 = WorldEditWrapper.getMinPoint(w, rs);
                                 loc1.setY(0);
-                                loc2 = WMWorldEdit.getMaxPoint(w, rs);
+                                loc2 = WorldEditWrapper.getMaxPoint(w, rs);
                                 loc2.setY(0);
                                 mode = 2;
                             }

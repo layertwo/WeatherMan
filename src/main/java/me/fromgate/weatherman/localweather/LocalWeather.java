@@ -27,7 +27,7 @@ import me.fromgate.weatherman.WeatherMan;
 import me.fromgate.weatherman.playerconfig.PlayerConfig;
 import me.fromgate.weatherman.util.BiomeTools;
 import me.fromgate.weatherman.util.Cfg;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -168,7 +168,7 @@ public class LocalWeather {
 
 
     public static WeatherState getRegionRain(Location loc) {
-        List<String> rgList = WMWorldEdit.getRegions(loc);
+        List<String> rgList = WorldEditWrapper.getRegions(loc);
         for (String rgStr : rgList) {
             if (regions.containsKey(rgStr)) {
                 return (regions.get(rgStr) ? WeatherState.RAIN : WeatherState.CLEAR);

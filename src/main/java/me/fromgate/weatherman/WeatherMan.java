@@ -39,7 +39,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WeatherMan extends JavaPlugin {
 
     private static WeatherMan instance;
+    private transient WorldEditWrapper weWrapper;
     private transient MetricsWrapper metrics;
+
 
     public static WeatherMan getPlugin() {
         return instance;
@@ -54,7 +56,7 @@ public class WeatherMan extends JavaPlugin {
         M.init("WeatherMan", new BukkitMessenger(this), Cfg.language, false, Cfg.languageSave);
         M.setDebugMode(Cfg.debug);
         Commander.init(this);
-        WMWorldEdit.init();
+        weWrapper = new WorldEditWrapper(this);
         PlayerConfig.init(this);
         BiomeTools.initBioms();
         Repopulator.init();
