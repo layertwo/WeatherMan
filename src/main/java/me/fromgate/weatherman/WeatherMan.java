@@ -28,23 +28,18 @@ import me.fromgate.weatherman.commands.Commander;
 import me.fromgate.weatherman.localtime.LocalTime;
 import me.fromgate.weatherman.localweather.LocalWeather;
 import me.fromgate.weatherman.playerconfig.PlayerConfig;
-import me.fromgate.weatherman.util.BiomeTools;
-import me.fromgate.weatherman.util.Cfg;
-import me.fromgate.weatherman.util.Forester;
-import me.fromgate.weatherman.util.Repopulator;
-import me.fromgate.weatherman.util.WMListener;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.*;
 import me.fromgate.weatherman.util.lang.BukkitMessenger;
 import me.fromgate.weatherman.util.lang.M;
 import me.fromgate.weatherman.util.tasks.InfoTask;
 import me.fromgate.weatherman.util.tasks.LocalWeatherTask;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class WeatherMan extends JavaPlugin {
 
     private static WeatherMan instance;
+    private transient MetricsWrapper metrics;
 
     public static WeatherMan getPlugin() {
         return instance;
@@ -69,6 +64,6 @@ public class WeatherMan extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new WMListener(this), this);
         new LocalWeatherTask().runTaskTimer(this, 30, 11);
         new InfoTask().runTaskTimer(this, 30, 8);
-        new Metrics(this, 0);
+        metrics = new MetricsWrapper(this, 0);
     }
 }
