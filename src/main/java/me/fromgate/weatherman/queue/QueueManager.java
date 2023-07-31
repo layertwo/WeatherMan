@@ -23,7 +23,7 @@
 package me.fromgate.weatherman.queue;
 
 import me.fromgate.weatherman.WeatherMan;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -37,7 +37,7 @@ import java.util.List;
 
 public class QueueManager {
 
-    private static List<Queue> queues = new ArrayList<>();
+    private static final List<Queue> queues = new ArrayList<>();
 
     public static boolean addQueue(Queue queue) {
         queues.add(queue);
@@ -69,20 +69,20 @@ public class QueueManager {
         if (player == null) {
             return M.MSG_CMDNEEDPLAYER.print(sender);
         }
-        if (!WMWorldEdit.isWE()) {
+        if (!WorldEditWrapper.hasWorldEdit()) {
             return M.MSG_NEEDWORLDEDIT.print(player);
         }
-        if (!WMWorldEdit.isSelected(player)) {
+        if (!WorldEditWrapper.isSelected(player)) {
             return M.MSG_SELECTREGION.print(player);
         }
-        Location loc1 = WMWorldEdit.getSelectionMinPoint(player);
-        Location loc2 = WMWorldEdit.getSelectionMaxPoint(player);
+        Location loc1 = WorldEditWrapper.getSelectionMinPoint(player);
+        Location loc2 = WorldEditWrapper.getSelectionMaxPoint(player);
         return addQueue(sender, loc1, loc2, biome, biomeOrPopulate, filterBiome);
     }
 
 
     public static boolean addQueueRegion(CommandSender sender, String region, Biome biome, boolean biomeOrPopulate, Biome filterBiome) {
-        if (!WMWorldEdit.isWG()) {
+        if (!WorldEditWrapper.hasWorldGuard()) {
             return M.WG_NOTFOUND.print(sender);
         }
         if (region.isEmpty()) {
@@ -91,9 +91,9 @@ public class QueueManager {
 
         int rgcount = 0;
         for (World w : Bukkit.getWorlds()) {
-            if (WMWorldEdit.isRegionExists(w, region)) {
-                Location loc1 = WMWorldEdit.getMinPoint(w, region);
-                Location loc2 = WMWorldEdit.getMaxPoint(w, region);
+            if (WorldEditWrapper.isRegionExists(w, region)) {
+                Location loc1 = WorldEditWrapper.getMinPoint(w, region);
+                Location loc2 = WorldEditWrapper.getMaxPoint(w, region);
                 if (addQueue(sender, loc1, loc2, biome, biomeOrPopulate, filterBiome)) rgcount++;
             }
         }

@@ -27,7 +27,7 @@ import me.fromgate.weatherman.WeatherMan;
 import me.fromgate.weatherman.playerconfig.PlayerConfig;
 import me.fromgate.weatherman.util.BiomeTools;
 import me.fromgate.weatherman.util.Cfg;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -142,7 +142,7 @@ public class LocalWeather {
     }
 
     public static void clearBiomeRain(String biome) {
-        if (biomes.containsKey(biome)) biomes.remove(biome);
+        biomes.remove(biome);
         saveLocalWeather();
     }
 
@@ -168,7 +168,7 @@ public class LocalWeather {
 
 
     public static WeatherState getRegionRain(Location loc) {
-        List<String> rgList = WMWorldEdit.getRegions(loc);
+        List<String> rgList = WorldEditWrapper.getRegions(loc);
         for (String rgStr : rgList) {
             if (regions.containsKey(rgStr)) {
                 return (regions.get(rgStr) ? WeatherState.RAIN : WeatherState.CLEAR);
@@ -190,7 +190,7 @@ public class LocalWeather {
     }
 
     public static void clearRegionRain(String region) {
-        if (regions.containsKey(region)) regions.remove(region);
+        regions.remove(region);
         saveLocalWeather();
     }
 
@@ -227,7 +227,7 @@ public class LocalWeather {
     }
 
     public static void clearWorldRain(String world) {
-        if (worlds.containsKey(world)) worlds.remove(world);
+        worlds.remove(world);
         saveLocalWeather();
     }
 

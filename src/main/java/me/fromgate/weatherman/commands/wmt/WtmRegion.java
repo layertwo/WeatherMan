@@ -29,7 +29,7 @@ import me.fromgate.weatherman.localtime.LocalTime;
 import me.fromgate.weatherman.localweather.LocalWeather;
 import me.fromgate.weatherman.util.Cfg;
 import me.fromgate.weatherman.util.Time;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.command.CommandSender;
 
@@ -40,14 +40,14 @@ public class WtmRegion extends Cmd {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (!Cfg.localTimeEnable) return M.TM_DISABLED.print(sender);
-        if (!WMWorldEdit.isWG()) {
+        if (!WorldEditWrapper.hasWorldGuard()) {
             return M.WG_NOTFOUND.print(sender);
         }
         if (args.length <= 2) {
             LocalTime.printRegionList(sender, args.length == 2 && args[1].matches("\\d+") ? Integer.parseInt(args[1]) : 1);
         } else {
             String regionName = args[1];
-            if (!WMWorldEdit.isRegionExists(regionName)) {
+            if (!WorldEditWrapper.isRegionExists(regionName)) {
                 LocalWeather.clearRegionRain(regionName);
                 return M.TM_UNKNOWNREGION.print(sender, regionName);
             }

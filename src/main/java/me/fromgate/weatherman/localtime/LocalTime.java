@@ -27,7 +27,7 @@ import me.fromgate.weatherman.playerconfig.PlayerConfig;
 import me.fromgate.weatherman.util.BiomeTools;
 import me.fromgate.weatherman.util.Cfg;
 import me.fromgate.weatherman.util.Time;
-import me.fromgate.weatherman.util.WMWorldEdit;
+import me.fromgate.weatherman.util.WorldEditWrapper;
 import me.fromgate.weatherman.util.lang.M;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -135,9 +135,7 @@ public class LocalTime {
     }
 
     public static void clearBiomeTime(String biome) {
-        if (biomes.containsKey(biome)) {
-            biomes.remove(biome);
-        }
+        biomes.remove(biome);
         saveLocalTime();
     }
 
@@ -162,7 +160,7 @@ public class LocalTime {
 
 
     public static Long getRegionTime(Location loc) {
-        List<String> rgList = WMWorldEdit.getRegions(loc);
+        List<String> rgList = WorldEditWrapper.getRegions(loc);
         for (String rgStr : rgList) {
             if (regions.containsKey(rgStr)) {
                 return regions.get(rgStr);
@@ -185,16 +183,12 @@ public class LocalTime {
     }
 
     public static void clearRegionTime(String region) {
-        if (regions.containsKey(region)) {
-            regions.remove(region);
-        }
+        regions.remove(region);
         saveLocalTime();
     }
 
     public static void clearWorldTime(String worldName) {
-        if (worlds.containsKey(worldName)) {
-            worlds.remove(worldName);
-        }
+        worlds.remove(worldName);
         saveLocalTime();
     }
 
@@ -217,9 +211,7 @@ public class LocalTime {
     public static void setWorldTime(String worldName, Long time) {
         if (worldName == null || worldName.isEmpty()) return;
         if (time == null) {
-            if (worlds.containsKey(worldName)) {
-                worlds.remove(worldName);
-            }
+            worlds.remove(worldName);
         } else {
             worlds.put(worldName, time);
         }
