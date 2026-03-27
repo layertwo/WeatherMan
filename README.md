@@ -42,54 +42,75 @@ Just copy it in your server `/plugins/` folder.
 * Create sign and type `[biome]` in second line, radius value in third, and biome names in first and forth lines. You can set word "replace" in third line if you need to replace the full biome. Now you can use redstone power to toggle between two biomes.
 
 ## Commands
-### General Commands:
-`/wm help` - display help and command list  
-`/wm check` - check biome in player location  
-`/wm info` - toggle walk-info mode (inform player when he moves from one biome to another)  
-`/wm list [tree | biome name mask]` - list available biome types (or tree types)
-`/wm wand [biome:<biome> radius:<radius> tree:<tree>` - toggles wand mode or configure wand parameters  
-`/wm give <biome | woodcutter | depopulator | forester>` - give defined wand (brush)
 
-### Change Biome Commands
-`/wm set biome:<biome|original> radius:<radius>` - set the biome around the player (size defined by radius)  
-`/wm set biome:<biome|original> loc:<world,x,z>` - set the biome around location (size defined by radius)  
-`/wm set biome:<biome|original> region:<region name>` - set the biome at WorldGuard region  
-`/wm set biome:<biome|original>` - set the biome in a WorldEdit selection  
-`/wm set biome:<biome|original> loc:<world,x,z> loc2:<world,x,z>` - set the biome at area defined by two locations  
+### General
 
-### Replace Biome Commands
-`/wm replace biome:<biome|original> source:<biome> radius:<radius>` - replace <source> biome with <biome> around the player (size defined by radius)  
-`/wm replace biome:<biome|original> source:<biome> loc:<world,x,z>` - replace <source> biome with <biome> around location (size defined by radius)  
-`/wm replace biome:<biome|original> source:<biome> region:<region name>` - replace <source> biome with <biome> at WorldGuard region  
-`/wm replace biome:<biome|original> source:<biome>` - replace <source> biome with <biome> the biome in a WorldEdit selection  
-`/wm replace biome:<biome|original> source:<biome> loc:<world,x,z> loc2:<world,x,z>` - replace <source> biome with <biome> at area defined by two locations  
-`/wm replace biome:<biome|original> fill:true` - replace current biome in player location with <biome>  
-`/wm replace biome:<biome|original> fill:true loc:<world,x,z>` - replace current biome in location <world,x,z> with <biome>
+| Command | Description |
+|---------|-------------|
+| `/wm help` | Display help and command list |
+| `/wm check` | Check biome at player location |
+| `/wm info` | Toggle walk-info mode (notifies player when crossing biome boundaries) |
+| `/wm list [tree \| biome name mask]` | List available biome types (or tree types) |
+| `/wm wand [biome:<biome> radius:<radius> tree:<tree>]` | Toggle wand mode or configure wand parameters |
+| `/wm give <biome \| woodcutter \| depopulator \| forester>` | Give the specified wand |
 
-### Repopulate Area Commands
-`/wm populate radius:<radius>` - repopulates area around the player (size defined by radius)  
-`/wm populate loc:<world,x,z>` - repopulates area around location (size defined by radius)  
-`/wm populate region:<region name>` - repopulates area inside WorldGuard region  
-`/wm populate` - repopulates area inside WorldEdit selection  
-`/wm populate loc:<world,x,z> loc2:<world,x,z>` - repopulates area defined by two locations
+### Change Biome
 
+| Command | Description |
+|---------|-------------|
+| `/wm set biome:<biome\|original> radius:<radius>` | Set biome around the player |
+| `/wm set biome:<biome\|original> loc:<world,x,z>` | Set biome around a location |
+| `/wm set biome:<biome\|original> region:<region>` | Set biome at a WorldGuard region |
+| `/wm set biome:<biome\|original>` | Set biome in a WorldEdit selection |
+| `/wm set biome:<biome\|original> loc:<world,x,z> loc2:<world,x,z>` | Set biome in area between two locations |
 
-### Weather Commands
-`/wth player <player> <rain|clear|remove>` - set personal player weather to rain, clear or remove settings  
-`/wth region <region> <rain|clear|remove>` - set weather in region to rain, clear or remove settings  
-`/wth biome <biome> <rain|clear|remove>` - set weather in biome to rain, clear or remove settings  
-`/wth world <world> <rain|clear|remove>` - set weather in world to rain, clear or remove settings
-`/wth <player|region|biome|world>` - list the players, regions, biomes, worlds where weather states are changed  
+### Replace Biome
 
-### Local Time Commands
-`/wtm player [<player> <HH:MM|day|night|remove>]` — configure player personal time
-`/wtm region [<region> <HH:MM|day|night|remove>]` — configure local region time
-`/wtm biome [<biome> <HH:MM|day|night|remove>]` — configure local biome time
-`/wtm world [<world> <HH:MM|day|night|remove>]` — configure local world time
+| Command | Description |
+|---------|-------------|
+| `/wm replace biome:<biome\|original> source:<biome> radius:<radius>` | Replace source biome around the player |
+| `/wm replace biome:<biome\|original> source:<biome> loc:<world,x,z>` | Replace source biome around a location |
+| `/wm replace biome:<biome\|original> source:<biome> region:<region>` | Replace source biome at a WorldGuard region |
+| `/wm replace biome:<biome\|original> source:<biome>` | Replace source biome in a WorldEdit selection |
+| `/wm replace biome:<biome\|original> source:<biome> loc:<world,x,z> loc2:<world,x,z>` | Replace source biome in area between two locations |
+| `/wm replace biome:<biome\|original> fill:true` | Replace current biome at player location |
+| `/wm replace biome:<biome\|original> fill:true loc:<world,x,z>` | Replace current biome at a location |
 
-### Personal Commands
-`/mytime <day|night|HH:MM|remove>` — set your own personal time override
-`/myweather <rain|clear|remove>` — set your own personal weather override
+### Repopulate Area
+
+| Command | Description |
+|---------|-------------|
+| `/wm populate radius:<radius>` | Repopulate area around the player |
+| `/wm populate loc:<world,x,z>` | Repopulate area around a location |
+| `/wm populate region:<region>` | Repopulate area inside a WorldGuard region |
+| `/wm populate` | Repopulate area inside a WorldEdit selection |
+| `/wm populate loc:<world,x,z> loc2:<world,x,z>` | Repopulate area between two locations |
+
+### Weather
+
+| Command | Description |
+|---------|-------------|
+| `/wth player <player> <rain\|clear\|remove>` | Set personal weather for a player |
+| `/wth region <region> <rain\|clear\|remove>` | Set weather for a WorldGuard region |
+| `/wth biome <biome> <rain\|clear\|remove>` | Set weather for a biome |
+| `/wth world <world> <rain\|clear\|remove>` | Set weather for a world |
+| `/wth <player\|region\|biome\|world>` | List all overrides for the given scope |
+
+### Local Time
+
+| Command | Description |
+|---------|-------------|
+| `/wtm player [<player> <HH:MM\|day\|night\|remove>]` | Configure personal time for a player |
+| `/wtm region [<region> <HH:MM\|day\|night\|remove>]` | Configure time for a WorldGuard region |
+| `/wtm biome [<biome> <HH:MM\|day\|night\|remove>]` | Configure time for a biome |
+| `/wtm world [<world> <HH:MM\|day\|night\|remove>]` | Configure time for a world |
+
+### Personal
+
+| Command | Description |
+|---------|-------------|
+| `/mytime <day\|night\|HH:MM\|remove>` | Set your own personal time override |
+| `/myweather <rain\|clear\|remove>` | Set your own personal weather override |
 
 ## How to revert back to original biomes
 If you need to set back an original biomes at defined area, you can use `original` biome type with commands /wm set, /wm replace, /wm biome (and use wand to change biomes). Command /wm replace source:<source biome> biome:<target biome> supporting "original" only as biome parameter (`<target biome>`).
