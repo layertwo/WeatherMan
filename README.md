@@ -5,9 +5,9 @@ WeatherMan allows you to change biomes and repopulate areas ingame with commands
 magic-wand and a sign, controlled by redstone power.
 WorldEdit selections and WorldGuard regions supported.
 
-[**Download**](https://dev.bukkit.org/bukkit-plugins/weatherman/)
+[**Download**](https://github.com/layertwo/WeatherMan/releases)
 
-[**Latest dev build**](https://circleci.com/gh/fromgate/WeatherMan) ![Snapshot](https://circleci.com/gh/fromgate/WeatherMan.svg?style=shield&circle-token=2bb628276a494b5ac51ec0a0ae4deda896b6f3e3)
+[![Java CI](https://github.com/layertwo/WeatherMan/actions/workflows/build.yml/badge.svg)](https://github.com/layertwo/WeatherMan/actions/workflows/build.yml)
 
 
 ## Video
@@ -46,7 +46,7 @@ Just copy it in your server `/plugins/` folder.
 `/wm help` - display help and command list  
 `/wm check` - check biome in player location  
 `/wm info` - toggle walk-info mode (inform player when he moves from one biome to another)  
-`/wm list [tree | biome name mask]` - list avaliable biome types (or tree types)  
+`/wm list [tree | biome name mask]` - list available biome types (or tree types)
 `/wm wand [biome:<biome> radius:<radius> tree:<tree>` - toggles wand mode or configure wand parameters  
 `/wm give <biome | woodcutter | depopulator | forester>` - give defined wand (brush)
 
@@ -78,27 +78,34 @@ Just copy it in your server `/plugins/` folder.
 `/wth player <player> <rain|clear|remove>` - set personal player weather to rain, clear or remove settings  
 `/wth region <region> <rain|clear|remove>` - set weather in region to rain, clear or remove settings  
 `/wth biome <biome> <rain|clear|remove>` - set weather in biome to rain, clear or remove settings  
-`/wth world <world> <rain|clear|remove>` - set weather in biome to rain, clear or remove settings  
+`/wth world <world> <rain|clear|remove>` - set weather in world to rain, clear or remove settings
 `/wth <player|region|biome|world>` - list the players, regions, biomes, worlds where weather states are changed  
 
 ### Local Time Commands
-`/wtm player [<player> <HH:MM|day|night|remove>]` — configure player personal time  
-`/wtm region [<region> <HH:MM|day|night|remove>]` — configure local region time  
-`/wtm biome [<biome> <HH:MM|day|night|remove>]` — configure local biome time  
+`/wtm player [<player> <HH:MM|day|night|remove>]` — configure player personal time
+`/wtm region [<region> <HH:MM|day|night|remove>]` — configure local region time
+`/wtm biome [<biome> <HH:MM|day|night|remove>]` — configure local biome time
 `/wtm world [<world> <HH:MM|day|night|remove>]` — configure local world time
+
+### Personal Commands
+`/mytime <day|night|HH:MM|remove>` — set your own personal time override
+`/myweather <rain|clear|remove>` — set your own personal weather override
 
 ## How to revert back to original biomes
 If you need to set back an original biomes at defined area, you can use `original` biome type with commands /wm set, /wm replace, /wm biome (and use wand to change biomes). Command /wm replace source:<source biome> biome:<target biome> supporting "original" only as biome parameter (`<target biome>`).
 
 ## Permissions
 `weatherman.basic` - allows to use commands `/wm help`, `/wm check`, `/wm list`    
-`weatherman.cmdbiome` - allows to use command `/wm set` and `/wm fill`  
+`weatherman.cmdbiome` - allows to use commands `/wm set` and `/wm replace`
 `weatherman.sign` - allows to create `[biome]` signs  
 `weatherman.wandbiome` - allows to use wand and commands `/wm wand`, `/wm radius`, `/wm biome`  
 `weatherman.config` - allows to setup plugin with command `/wm cfg`  
-`weatherman.weather` - allows to use local weather command `/wth`  
-`weatherman.time` - allows to use local time command `/wtm` 
+`weatherman.weather` - allows to use local weather command `/wth`
+`weatherman.time` - allows to use local time command `/wtm`
+`weatherman.myweather` - allows to use personal weather command `/myweather`
+`weatherman.mytime` - allows to use personal time command `/mytime`
+`weatherman.repopulate` - allows to use repopulate command `/wm populate`
 
 ## Update checker and bStats
 WeatherMan includes two features that use your server internet connection.
-First one is bStats, that used to collect information about the plugin (versions of plugin, of Java.. etc.) and second is update checker, checks new releases of plugin after WeatherMan startup and every half hour. This feature is using API provided by dev.bukkit.org. If you don't like this features you can easy disable it. To disable update checker you need to set parameter "version-check" to "false" in config.yml. Obtain more information about bStats and learn how to switch off it, you can read [here](https://bstats.org/getting-started).
+First one is bStats, that used to collect information about the plugin (versions of plugin, of Java.. etc.) and second is update checker, checks new releases of plugin after WeatherMan startup and every half hour. This feature is using API provided by dev.bukkit.org. If you don't like this features you can easy disable it. To disable update checker you need to set parameter "check-updates" to "false" in config.yml. Obtain more information about bStats and learn how to switch off it, you can read [here](https://bstats.org/getting-started).
